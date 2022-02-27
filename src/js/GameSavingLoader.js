@@ -1,14 +1,12 @@
 import json from './parser';
 import read from './reader';
+import GameSaving from './GameSaving';
 
 export default class GameSavingLoader {
   static load() {
-    return new Promise((resolve, reject) => {
-      read()
-        .then((buffer) => json(buffer))
-        .then((value) => JSON.parse(value))
-        .then((saving) => resolve(saving))
-        .catch((err) => reject(err));
-    });
+    return read()
+      .then((buffer) => json(buffer))
+      .then((value) => JSON.parse(value))
+      .then((data) => new GameSaving(data));
   }
 }
